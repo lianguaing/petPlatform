@@ -7,6 +7,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 //后台路由文件
 var adminUsersRouter = require('./routes/admin/users');
+var adminPetsRouter = require('./routes/admin/pet');
 
 var app = express();
 
@@ -21,5 +22,6 @@ app.use('/users', usersRouter);
 
 //后台路由配置
 app.use('/admin/users', adminUsersRouter);
+app.use('/admin/pet', adminPetsRouter);
 
 module.exports = app;
