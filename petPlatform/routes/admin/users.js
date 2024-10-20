@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const { User } = require("../../models");
 const { Op } = require("sequelize");
+const { NotFoundError, success, failure } = require("../../utils/response");
 
 /**
  * 查询所有用户
@@ -32,17 +33,12 @@ router.get("/", async (req, res) => {
       };
     }
     const { count, rows: users } = await User.findAndCountAll(condition);
-    res.json({
-      status: true,
-      message: "查询成功",
-      data: { users, pagination: { currentPage, pageSize, total: count } },
+    success(res, "查询成功", {
+      users,
+      pagination: { currentPage, pageSize, total: count },
     });
   } catch (error) {
-    res.status(500).json({
-      status: false,
-      message: "查询失败",
-      data: { error },
-    });
+    failure(res, error);
   }
 });
 
@@ -50,17 +46,15 @@ router.get("/", async (req, res) => {
  * 根据name查询用户
  */
 router.get("/:name", async (req, res) => {
-  const { name } = req.params;
-  const user = await User.findOne({ where: { name: name } });
-
-  if (user) {
-    res.json({
-      status: true,
-      message: "查询成功",
-      data: { user },
-    });
-  } else {
-    res.status(404).send("User not found");
+  try {
+    const { name } = req.params;
+    const user = await User.findOne({ where: { name: name } });
+    if (!user) {
+      throw new NotFoundError(`${name}用户不存在`);
+    }
+    success(res, "查询成功", { user });
+  } catch (error) {
+    failure(res, error);
   }
 });
 
@@ -72,49 +66,52 @@ router.post("/", async (req, res) => {
     //白名单过滤
     const body = filterBody(req);
     const user = await User.create(body);
-    res.status(201).json({
-      status: true,
-      message: "创建成功",
-      data: { user },
-    });
+    success(res, "创建成功", { user }, 201);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    failure(res, err);
   }
 });
 /**
  * 更新用户
  */
 router.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const user = await User.findByPk(id);
-  if (!user) {
-    return res.status(404).json({ status: false, message: "用户不存在" });
+  try {
+    const user = await getUser(req);
+    await user.update(filterBody(req));
+    success(res, "更新成功");
+  } catch (error) {
+    failure(res, error);
   }
-  await user.update(filterBody(req));
-  res.json({
-    status: true,
-    message: "更新成功",
-  });
 });
 /**
  * 删除用户
  */
 router.delete("/:id", async (req, res) => {
+  try {
+    const user = await getUser(req);
+    await user.destroy();
+    success(res, "删除成功");
+  } catch (error) {
+    failure(res, error);
+  }
+});
+
+/**
+ * 公共方法：查询用户
+ */
+async function getUser(req) {
   const { id } = req.params;
   const user = await User.findByPk(id);
   if (!user) {
-    return res.status(404).json({ status: false, message: "用户不存在" });
+    throw new NotFoundError(`ID:${id}用户不存在`);
   }
-  await user.destroy();
-  res.json({
-    status: true,
-    message: "删除成功",
-  });
-});
+  return user;
+}
+
 //白名单过滤
 function filterBody(req) {
   return {
-    name: req.body.name||'momo',
+    name: req.body.name || "momo",
     password: req.body.password,
     gender: req.body.gender || "other",
     contact_info: req.body.contact_info,

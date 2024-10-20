@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [6, 10],
+        },
       },
       name: DataTypes.STRING,
       gender: {
