@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       gender: {
         type: DataTypes.ENUM,
         values: ["male", "female", "other"],
-        defaultValue: "other", // 设置默认值
+        defaultValue: "other",
       },
       contact_info: DataTypes.STRING,
       avatar_url: DataTypes.STRING,
