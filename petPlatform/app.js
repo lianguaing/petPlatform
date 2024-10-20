@@ -8,6 +8,7 @@ var usersRouter = require('./routes/users');
 //后台路由文件
 var adminUsersRouter = require('./routes/admin/users');
 var adminPetsRouter = require('./routes/admin/pet');
+var adminAdoptionsRouter = require('./routes/admin/adoption');
 
 var app = express();
 
@@ -23,5 +24,6 @@ app.use('/users', usersRouter);
 //后台路由配置
 app.use('/admin/users', adminUsersRouter);
 app.use('/admin/pet', adminPetsRouter);
+app.use('/admin/adoption', adminAdoptionsRouter);
 
 module.exports = app;
