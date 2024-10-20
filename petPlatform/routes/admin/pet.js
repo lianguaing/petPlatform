@@ -24,12 +24,34 @@ router.get("/", async (req, res) => {
       offset: offset,
       limit: pageSize,
     };
-    //模糊查询
+    //模糊查询名字
     if (query.name) {
       condition.where = {
         name: {
           [Op.like]: `%${query.name}%`,
         },
+      };
+    }
+    //模糊查询物种
+    if (query.species) {
+      condition.where.species = query.species;
+    }
+    //查询性别
+    if (query.gender) {
+      condition.where.gender = query.gender;
+    }
+    //查询年龄范围(如：1-3)
+    if (query.age) {
+      condition.where = condition.where || {};
+      const [minAge, maxAge] = query.age.split('-').map(Number);
+      condition.where.age = {
+        [Op.between]: [minAge, maxAge],
+      };
+    }
+    //模糊查询品种
+    if (query.breed) {
+      condition.where.breed = {
+        [Op.like]: `%${query.breed}%`,
       };
     }
     const { count, rows: Pets } = await Pet.findAndCountAll(condition);
@@ -45,12 +67,28 @@ router.get("/", async (req, res) => {
 /**
  * 根据name查询宠物
  */
-router.get("/:name", async (req, res) => {
+// router.get("/:name", async (req, res) => {
+//   try {
+//     const { name } = req.params;
+//     const pet = await Pet.findOne({ where: { name: name } });
+//     if (!pet) {
+//       throw new NotFoundError(`${name}宠物不存在`);
+//     }
+//     success(res, "查询成功", { pet });
+//   } catch (error) {
+//     failure(res, error);
+//   }
+// });
+
+/**
+ * 根据发布者查询宠物
+ */
+router.get("/:user_id", async (req, res) => {
   try {
-    const { name } = req.params;
-    const pet = await Pet.findOne({ where: { name: name } });
+    const { user_id } = req.params;
+    const pet = await Pet.findAll({ where: { user_id: user_id } });
     if (!pet) {
-      throw new NotFoundError(`${name}宠物不存在`);
+      throw new NotFoundError(`${user_id}没有发布宠物信息`);
     }
     success(res, "查询成功", { pet });
   } catch (error) {
