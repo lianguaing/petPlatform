@@ -26,6 +26,7 @@ function instanceFactory(url) {
       return res.data; // 直接返回响应数据
     },
     async (err) => {
+      console.log(err.response.data);
       return Promise.reject(err);
     }
   );
