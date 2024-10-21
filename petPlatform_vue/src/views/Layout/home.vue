@@ -5,12 +5,16 @@ import { onMounted } from 'vue';
 onMounted(() => {
     getUserInfo(20241018).then((res) => {
         console.log(res);
-    })
+    }, (err) => { }
+    )
 })
 </script>
 <template>
-    <div class="home">
-        <span>宠物之家</span>
-    </div>
+    <el-button type="primary" class="home">Primary Button</el-button>
 </template>
-<style></style>
+
+<style lang="less">
+.home {
+    color: @secondary-color; // 直接使用全局变量
+}
+</style>
