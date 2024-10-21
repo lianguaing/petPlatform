@@ -43,15 +43,11 @@ router.get("/", async (req, res) => {
 });
 
 /**
- * 根据name查询用户
+ * 根据id查询用户
  */
-router.get("/:name", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const { name } = req.params;
-    const user = await User.findOne({ where: { name: name } });
-    if (!user) {
-      throw new NotFoundError(`${name}用户不存在`);
-    }
+    const user = await getUser(req);
     success(res, "查询成功", { user });
   } catch (error) {
     failure(res, error);
