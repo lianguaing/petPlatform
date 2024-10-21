@@ -5,12 +5,6 @@ var logger = require("morgan");
 
 //处理跨域
 const cors = require("cors");
-//CORS跨域配置
-app.use(
-  cors({
-    origin: ["http://localhost:8080"],
-  })
-);
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -21,6 +15,13 @@ var adminAdoptionsRouter = require("./routes/admin/adoption");
 var adminPhotoRouter = require("./routes/admin/petphoto");
 
 var app = express();
+
+//CORS跨域配置
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+  })
+);
 
 app.use(logger("dev"));
 app.use(express.json());
