@@ -44,7 +44,7 @@ const confirm = () => {
 
 <style scoped lang="less">
 .app-topnav {
-    background: #cc9eb4;
+    background: @primary-color;
     border-radius: 15px;
 
     ul {
@@ -56,7 +56,7 @@ const confirm = () => {
         li {
             a {
                 padding: 0 15px;
-                color: #0d0d0d;
+                color: #7a7878;
                 line-height: 1;
                 display: inline-block;
 
