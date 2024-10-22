@@ -32,18 +32,27 @@
 </template>
 <script setup>
 import { useUserStore } from "@/stores/userStore";
-import { ref } from "vue";
+import { reactive } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const userStore = useUserStore();
-const userInfo = ref(userStore.userInfo);
+const userInfo = reactive({
+    id: userStore.userInfo.id,
+    name: userStore.userInfo.name,
+    gender: userStore.userInfo.gender,
+    contact_info: userStore.userInfo.contact_info
+});
+router.beforeEach((to, from, next) => {
+    Object.assign(userInfo, userStore.userInfo);
+    next(); // 继续导航
+});
 async function confirm() {
     const obj = {
-        name: userInfo.value.name,
-        gender: userInfo.value.gender,
-        contact_info: userInfo.value.contact_info
+        name: userInfo.name,
+        gender: userInfo.gender,
+        contact_info: userInfo.contact_info
     }
-    const flag = await userStore.updateUserMessage(userInfo.value.id, obj)
+    const flag = await userStore.updateUserMessage(userInfo.id, obj)
     if (flag) {
         ElMessage.success('修改信息成功！')
     } else {
