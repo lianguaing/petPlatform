@@ -17,7 +17,8 @@ const confirm = () => {
             <ul>
                 <template v-if="userStore.userInfo.id">
                     <li>
-                        <a href="javascript:;"><i class="iconfont icon-user"></i>{{ userStore.userInfo.id }}</a>
+                        <a href="javascript:;" @click="$router.push('/my')"> <i class=" iconfont icon-user"></i>{{
+                            userStore.userInfo.id }}</a>
                     </li>
                     <li>
                         <el-popconfirm @confirm="confirm" title="确认退出吗?" confirm-button-text="确认"

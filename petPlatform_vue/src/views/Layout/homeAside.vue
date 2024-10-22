@@ -48,7 +48,7 @@ const handleLogin = () => {
 <style scoped lang="less">
 .aside {
     width: 200px;
-    background-color: #e2c4db;
+    background-color: @primary-color;
     border-radius: 0 15px 15px 0;
 }
 
@@ -57,7 +57,7 @@ const handleLogin = () => {
     width: 120px;
     margin: 40px;
     text-align: center;
-    color: #9b999a;
+    color: @secondary-color;
     border-radius: 50%;
     cursor: pointer;
 }

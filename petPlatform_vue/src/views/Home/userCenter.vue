@@ -3,11 +3,11 @@
         <div class="user-info">
             <div class="user-info-item">
                 <div class="user-info-name">账号</div>
-                <el-input v-model="userInfo.id" disabled placeholder="Please input" />
+                <el-input style="width: 300px;" v-model="userInfo.id" disabled placeholder="Please input" />
             </div>
             <div class="user-info-item">
                 <div class="user-info-name">用户名</div>
-                <el-input v-model="userInfo.name" placeholder="Please input" />
+                <el-input style="width: 300px;" v-model="userInfo.name" placeholder="Please input" />
             </div>
             <div class="user-info-item">
                 <el-radio-group v-model="userInfo.gender">
@@ -18,12 +18,12 @@
             </div>
             <div class="user-info-item">
                 <div class="user-info-name">联系方式</div>
-                <el-input v-model="userInfo.contact_info" placeholder="Please input" />
+                <el-input style="width: 300px;" v-model="userInfo.contact_info" placeholder="Please input" />
             </div>
             <div class="user-info-item">
                 <el-popconfirm @confirm="confirm" title="确认修改信息吗?" confirm-button-text="确认" cancel-button-text="取消">
                     <template #reference>
-                        <el-button type="primary">更新</el-button>
+                        <el-button type="primary">保存</el-button>
                     </template>
                 </el-popconfirm>
             </div>
@@ -69,7 +69,7 @@ async function confirm() {
 .user-info {
     text-align: center;
     background-color: #f1f1f3;
-    padding: 0px;
+    padding-top: 20px;
     margin: 0px;
     height: 650px;
     border-radius: 15px;
@@ -78,12 +78,12 @@ async function confirm() {
         display: flex;
         height: 30px;
         justify-content: center;
-        margin-bottom: 20px
+        margin-bottom: 20px;
     }
 
     &-name {
         margin-right: 20px;
-        width: 200px;
+        width: 100px;
         line-height: 30px;
     }
 }
