@@ -1,12 +1,27 @@
 <script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router'
+import { useUserStore } from '../../stores/userStore.js'
+
+const userStore = useUserStore()
+const router = useRouter();
 
 const categoryList = [
     { id: 1, name: '首页', routeName: 'petHome' },
     { id: 2, name: '发布信息', routeName: 'userPublish' },
     { id: 3, name: '领养信息', routeName: 'userAdopt' },
 ]
-const handleClick=()=>{
-
+const userIsExit = ref(Boolean(userStore.userInfo.id))
+const handleClick = () => {
+    if (userStore.userInfo.id) {
+        // 跳转到个人中心
+        router.push({ name: 'userCenter' });
+    } else {
+        router.push({ name: 'login' });
+    }
+}
+const handleLogin = () => {
+    router.push({ name: 'login' }); // 使用路由名称跳转
 }
 </script>
 
@@ -14,8 +29,9 @@ const handleClick=()=>{
     <div class="aside">
         <!-- 个人头像 -->
         <div class="user-image" @click="handleClick">
-            <img class="default-image" src="../../../public/image/female.png" alt="" >
-            <span>请登录</span>
+            <img class="default-image" src="../../../public/image/female.png" alt="">
+            <span v-if="!userIsExit">请登录</span>
+            <span v-else>{{ userStore.userInfo.id }}</span>
         </div>
         <!-- 菜单 -->
         <div class="home-category">

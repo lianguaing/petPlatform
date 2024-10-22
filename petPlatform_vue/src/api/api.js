@@ -31,7 +31,7 @@ export const getUserInfo = (id) => instance.get(`/admin/users/${id}`);
  * 修改用户信息
  */
 export const updateUserInfo = (id, data) =>
-  instance.put(`/admin/user/${id}`, data);
+  instance.put(`/admin/users/${id}`, data);
 /**
  * 注册用户
  */

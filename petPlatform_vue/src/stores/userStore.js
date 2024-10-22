@@ -1,6 +1,6 @@
 // 管理用户数据相关
 import { defineStore } from "pinia";
-import { getUserInfo, registerUser } from "../api/api";
+import { getUserInfo, registerUser, updateUserInfo } from "../api/api";
 
 export const useUserStore = defineStore({
   id: "user",
@@ -35,6 +35,20 @@ export const useUserStore = defineStore({
         return true;
       } catch (e) {
         console.log("注册用户出错", e);
+        return false;
+      }
+    },
+    //修改用户信息
+    async updateUserMessage(id, data) {
+      try {
+        console.log("信息：", id, data);
+        const res = await updateUserInfo(id, data);
+        console.log("修改用户信息：", res);
+        //自动登录保存用户数据
+        Object.assign(this.userInfo, data);
+        return true;
+      } catch (e) {
+        console.log("修改用户信息出错", e);
         return false;
       }
     },
