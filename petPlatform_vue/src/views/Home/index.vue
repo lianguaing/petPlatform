@@ -24,6 +24,9 @@ async function getPets(data) {
 async function handleSearch() {
     console.log(inputInfo)
 }
+
+//发布
+function handlePublish() { }
 onMounted(async () => {
     //挂载时加载宠物信息
     getPets()
@@ -31,24 +34,32 @@ onMounted(async () => {
 </script>
 <template>
     <div class="main">
-        <!-- 搜索栏 -->
-        <div class="search-box">
-            <el-input style="width: 150px;margin-right: 5px;" v-model="inputInfo.name" placeholder="请输入宠物名"></el-input>
-            <el-input style="width: 150px;margin-right: 5px;" v-model="inputInfo.species"
-                placeholder="请输入物种"></el-input>
-            <el-input style="width: 150px;margin-right: 5px;" v-model="inputInfo.breed" placeholder="请输入品种"></el-input>
-            <el-select v-model="inputInfo.gender" placeholder="雌雄" style="width: 80px;margin-right: 5px;">
-                <el-option v-for="item in genderValues" :key="item.value" :label="item.label" :value="item.value" />
-            </el-select>
-            <el-button type="primary" @click="handleSearch">搜索</el-button>
-        </div>
-        <!-- 搜索栏end -->
-        <div class="border-box"></div>
-        <!-- 宠物信息卡片展示 -->
-        <div class="cards-box">
-            <div v-for="pet in petList" :key="pet.id" class="card-item">
-                <petCard :pet=pet />
+        <div class="main-header">
+            <!-- 搜索栏 -->
+            <div class="search-box">
+                <el-input style="width: 150px;margin-right: 5px;" v-model="inputInfo.name"
+                    placeholder="请输入宠物名"></el-input>
+                <el-input style="width: 150px;margin-right: 5px;" v-model="inputInfo.species"
+                    placeholder="请输入物种"></el-input>
+                <el-input style="width: 150px;margin-right: 5px;" v-model="inputInfo.breed"
+                    placeholder="请输入品种"></el-input>
+                <el-select v-model="inputInfo.gender" placeholder="雌雄" style="width: 80px;margin-right: 5px;">
+                    <el-option v-for="item in genderValues" :key="item.value" :label="item.label" :value="item.value" />
+                </el-select>
+                <el-button type="primary" @click="handleSearch">搜索</el-button>
             </div>
+            <!-- 搜索栏end -->
+            <!-- 发布栏 -->
+            <div class="publish-box">
+                <el-button type="success" @click="handlePublish">我要发布</el-button>
+            </div>
+        </div>
+    </div>
+    <div class="border-box"></div>
+    <!-- 宠物信息卡片展示 -->
+    <div class="cards-box">
+        <div v-for="pet in petList" :key="pet.id" class="card-item">
+            <petCard :pet=pet />
         </div>
     </div>
 </template>
@@ -57,10 +68,14 @@ onMounted(async () => {
 .main {
     width: 100%;
 }
-
-.search-box {
-    margin-top: 20px;
+.main-header{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 20px 0 10px;
 }
+// .search-box {
+
+// }
 
 .border-box {
     height: 2px;
