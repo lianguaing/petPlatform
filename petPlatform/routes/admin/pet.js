@@ -151,6 +151,8 @@ async function getPet(req) {
 function filterBody(req) {
   return {
     user_id: req.body.user_id,
+    status: req.body.status || "adoptable",
+    adopter_id: req.body.adopter_id,
     name: req.body.name,
     gender: req.body.gender || "male",
     age: req.body.age,

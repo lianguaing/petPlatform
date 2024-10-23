@@ -32,12 +32,23 @@ function handelChange(flag) {
                 </div>
             </div>
             <div class="operation">
+                <!-- 完成状态 -->
                 <el-button v-if="item.status === 'approved'" type="success" size="small">已同意</el-button>
-                <el-button v-if="item.status === 'rejected'" type="success" size="small">已拒绝</el-button>
-                <el-button v-if="item.status === 'pending'" type="success" size="small"
-                    @click="handelChange([true, item.id])">同意</el-button>
-                <el-button v-if="item.status === 'pending'" type="danger" size="small"
-                    @click="handelChange([false, item.id])">拒绝</el-button>
+                <el-button v-if="item.status === 'rejected'" type="warning" size="small">已拒绝</el-button>
+                <!-- 处理状态 -->
+                <el-popconfirm @confirm="handelChange([true, item.id, item.User.id])"
+                    title="确认同意该用户领养吗？同意后自动拒绝其他用户，不可更改" confirm-button-text="确认" cancel-button-text="取消"
+                    v-if="item.status === 'pending'">
+                    <template #reference>
+                        <el-button type="success" size="small">同意</el-button>
+                    </template>
+                </el-popconfirm>
+                <el-popconfirm @confirm="handelChange([false, item.id, item.User.id])" title="确认拒绝该用户领养吗？拒绝后不可更改"
+                    confirm-button-text="确认" cancel-button-text="取消" v-if="item.status === 'pending'">
+                    <template #reference>
+                        <el-button type="danger" size="small">拒绝</el-button>
+                    </template>
+                </el-popconfirm>
             </div>
         </div>
     </div>
