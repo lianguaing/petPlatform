@@ -8,8 +8,8 @@ const router = useRouter();
 
 const categoryList = [
     { id: 1, name: '首页', routeName: 'petHome' },
-    { id: 2, name: '发布信息', routeName: 'userPublish' },
-    { id: 3, name: '领养信息', routeName: 'userAdopt' },
+    { id: 2, name: '我的发布', routeName: 'userPublish' },
+    { id: 3, name: '我的领养', routeName: 'userAdopt' },
 ]
 const userIsExit = ref(Boolean(userStore.userInfo.id))
 const handleClick = () => {
