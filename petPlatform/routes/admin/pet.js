@@ -23,6 +23,7 @@ router.get("/", async (req, res) => {
       order: [["id", "DESC"]], //根据id降序排列
       offset: offset,
       limit: pageSize,
+      where: {},
     };
     //模糊查询名字
     if (query.name) {

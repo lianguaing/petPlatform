@@ -52,4 +52,10 @@ onMounted(() => {
     margin-top: 20px;
     border-radius: 10px;
 }
+.adopt-list {
+    margin: 20px 10px;
+}
+.adopt-item{
+    margin-bottom: 20px;
+}
 </style>

@@ -43,6 +43,11 @@ export const registerUser = (data) => instance.post("/admin/users", data);
 export const getAdoptionInfo = (user_id) =>
   instance.get(`/admin/adoption/user/${user_id}`);
 /**
+ * 根据宠物id查询申请表
+ */
+export const getAdoptionInfoByPetId = (pet_id) =>
+  instance.get(`/admin/adoption/${pet_id}`);
+/**
  * 新增领养信息
  */
 export const addAdoptionInfo = (data) => instance.post("/admin/adoption", data);
