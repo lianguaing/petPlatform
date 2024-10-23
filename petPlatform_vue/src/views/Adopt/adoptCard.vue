@@ -11,7 +11,9 @@ const props = defineProps({
 </script>
 <template>
     <div class="adopt-card">
-        <div class="details">信息</div>
+        <div class="details">
+            
+        </div>
         <div class="operation">操作</div>
     </div>
 </template>

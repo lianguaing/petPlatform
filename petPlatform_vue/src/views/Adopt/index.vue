@@ -28,7 +28,9 @@ onMounted(() => {
         <h3 class="text">我的领养</h3>
         <div class="border-box"></div>
         <!-- 领养列表 -->
+        
         <div class="adopt-list">
+            已领养
             <div class="adopt-item" v-for="item in adoptList" :key="item.id">
                 <adoptCard />
             </div>
