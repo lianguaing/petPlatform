@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../../stores/userStore.js'
-import { getPetInfoByUserId } from '@/api/api';
+import { getPetInfoByUserId} from '@/api/api';
 import publishCard from './publishCard.vue';
 
 const userStore = useUserStore()
@@ -29,7 +29,7 @@ onMounted(() => {
         <!-- 发布列表 -->
         <div class="publish-list">
             <div class="publish-item" v-for="item in publishList" :key="item.id">
-                <publishCard />
+                <publishCard :pet="item"/>
             </div>
         </div>
     </div>
@@ -52,4 +52,10 @@ onMounted(() => {
     border-radius: 10px;
 }
 
+.publish-list {
+    margin: 20px 10px;
+}
+.publish-item{
+    margin-bottom: 20px;
+}
 </style>

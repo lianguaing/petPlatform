@@ -17,12 +17,13 @@ const inputInfo = reactive({
 })
 //查询宠物信息
 async function getPets(data) {
-    const pets = await getPetInfo()
+    const pets = await getPetInfo(data)
     petList.value = pets.data.Pets
     console.log(petList.value)
 }
 async function handleSearch() {
     console.log(inputInfo)
+    getPets(inputInfo)
 }
 
 //发布
@@ -68,11 +69,13 @@ onMounted(async () => {
 .main {
     width: 100%;
 }
-.main-header{
+
+.main-header {
     display: flex;
     justify-content: space-between;
     margin: 20px 20px 0 10px;
 }
+
 // .search-box {
 
 // }

@@ -24,6 +24,5 @@ const props = defineProps({
     justify-content: space-between;
     border: 1px solid #ccc;
     border-radius: 12px;
-    margin: 20px 10px;
 }
 </style>
