@@ -1,7 +1,7 @@
 // 引入Express模块
 const express = require("express");
 const router = express.Router();
-const { AdoptionRequest, Pet,User } = require("../../models");
+const { AdoptionRequest, Pet, User } = require("../../models");
 const { Op } = require("sequelize");
 const { NotFoundError, success, failure } = require("../../utils/response");
 
@@ -13,6 +13,13 @@ router.get("/user/:user_id", async (req, res) => {
     const { user_id } = req.params;
     const adoptionR = await AdoptionRequest.findAll({
       where: { user_id: user_id },
+      //增加关联
+      include: [
+        {
+          model: Pet, // 关联的模型
+          attributes: ["name", "age", "gender", "breed"],
+        },
+      ],
     });
     if (!adoptionR) {
       throw new NotFoundError(`该用户${user_id}没有申请表信息`);
@@ -33,13 +40,10 @@ router.get("/:pet_id", async (req, res) => {
 
       //增加关联
       include: [
-        // {
-        //   model: Pet, // 关联的模型
-        // },
         {
           model: User, // 关联的模型
           attributes: ["id", "name", "contact_info"],
-        }
+        },
       ],
     });
     if (!adoptionR) {
