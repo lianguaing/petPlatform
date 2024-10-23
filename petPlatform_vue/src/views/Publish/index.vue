@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../../stores/userStore.js'
-import { getPetInfoByUserId} from '@/api/api';
+import { getPetInfoByUserId } from '@/api/api';
 import publishCard from './publishCard.vue';
 
 const userStore = useUserStore()
@@ -16,7 +16,7 @@ const publishList = ref({})
 async function getPublishByUserId() {
     const res = await getPetInfoByUserId(userInfo.value.id)
     publishList.value = res.data.pet
-    console.log(publishList.value)
+    console.log('发布列表：',publishList.value)
 }
 onMounted(() => {
     getPublishByUserId()
@@ -29,7 +29,7 @@ onMounted(() => {
         <!-- 发布列表 -->
         <div class="publish-list">
             <div class="publish-item" v-for="item in publishList" :key="item.id">
-                <publishCard :pet="item"/>
+                <publishCard :pet="item" />
             </div>
         </div>
     </div>
@@ -55,7 +55,8 @@ onMounted(() => {
 .publish-list {
     margin: 20px 10px;
 }
-.publish-item{
+
+.publish-item {
     margin-bottom: 20px;
 }
 </style>

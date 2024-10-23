@@ -29,6 +29,11 @@ const router = createRouter({
           name: "userCenter",
           component: () => import("../views/Home/userCenter.vue"),
         },
+        {
+          path: "/petDetail",
+          name: "petDetail",
+          component: () => import("../views/Pet/petDetails.vue"),
+        },
       ],
     },
     {

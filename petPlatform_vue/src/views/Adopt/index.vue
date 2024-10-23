@@ -16,7 +16,7 @@ const adoptList = ref({})
 async function getadoptByUserId() {
     const res = await getAdoptionInfo(userInfo.value.id)
     adoptList.value = res.data.adoptionR
-    console.log(adoptList.value)
+    console.log('领养列表：',adoptList.value)
 }
 onMounted(() => {
     getadoptByUserId()
@@ -30,9 +30,8 @@ onMounted(() => {
         <!-- 领养列表 -->
         
         <div class="adopt-list">
-            已领养
             <div class="adopt-item" v-for="item in adoptList" :key="item.id">
-                <adoptCard />
+                <adoptCard :adopt="item"/>
             </div>
         </div>
     </div>

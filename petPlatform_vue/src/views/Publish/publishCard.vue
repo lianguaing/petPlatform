@@ -88,6 +88,7 @@ async function rejectOther(approvedId) {
     flex-direction: column;
     border: 1px solid #ccc;
     border-radius: 12px;
+    background-color: rgb(245, 242, 244);
 }
 
 .card-header {
