@@ -15,6 +15,7 @@ var adminPetsRouter = require("./routes/admin/pet");
 var adminAdoptionsRouter = require("./routes/admin/adoption");
 var adminPhotoRouter = require("./routes/admin/petphoto");
 var uploadPhoto = require("./routes/uploads");
+var uploadAvatar = require("./routes/uploadAvatar");
 
 var app = express();
 
@@ -40,5 +41,6 @@ app.use("/admin/pet", adminPetsRouter);
 app.use("/admin/adoption", adminAdoptionsRouter);
 app.use("/admin/petphoto", adminPhotoRouter);
 app.use("/uploads", uploadPhoto);
+app.use("/uploads", uploadAvatar);
 
 module.exports = app;
