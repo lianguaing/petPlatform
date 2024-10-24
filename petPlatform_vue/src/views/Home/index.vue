@@ -89,7 +89,7 @@ function changePage() {
         <button @click="changePage">返回</button>
     </section>
     <!-- 发布宠物弹窗 -->
-    <addPet v-show="showAddPet" @update:show="showAddPet = false" />
+    <addPet v-show="showAddPet" @update:show="showAddPet = false" @updatePet="getPets"/>
 </template>
 
 <style scoped lang="less">
