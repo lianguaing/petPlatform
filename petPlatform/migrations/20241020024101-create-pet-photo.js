@@ -19,7 +19,34 @@ module.exports = {
         //这表示当 pets 表中的某条记录被删除时，所有引用该记录的 pet_id 字段也会被自动删除。这是一种级联删除的机制，用于维护数据的一致性。
         onDelete: "CASCADE",
       },
-      photo_url: {
+      fullpath: {
+        type: Sequelize.STRING,
+      },
+      fieldname: {
+        type: Sequelize.STRING,
+      },
+      originalname: {
+        type: Sequelize.STRING,
+      },
+      encoding: {
+        type: Sequelize.STRING,
+      },
+      mimetype: {
+        type: Sequelize.STRING,
+      },
+      destination: {
+        type: Sequelize.STRING,
+      },
+      filename: {
+        type: Sequelize.STRING,
+      },
+      path: {
+        type: Sequelize.STRING,
+      },
+      size: {
+        type: Sequelize.INTEGER,
+      },
+      url: {
         type: Sequelize.STRING,
       },
       createdAt: {

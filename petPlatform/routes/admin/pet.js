@@ -20,6 +20,8 @@ router.get("/", async (req, res) => {
     const offset = (currentPage - 1) * pageSize;
 
     const condition = {
+      //去重
+      distinct: true,
       order: [["id", "DESC"]], //根据id降序排列
       offset: offset,
       limit: pageSize,
@@ -33,7 +35,7 @@ router.get("/", async (req, res) => {
         },
         {
           model: PetPhoto, // 关联宠物照片表
-          attributes: ["id", "photo_url"],
+          attributes: ["id", "url"],
         },
       ],
     };

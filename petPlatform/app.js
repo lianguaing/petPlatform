@@ -2,6 +2,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+require("dotenv").config(); //加载环境变量
 
 //处理跨域
 const cors = require("cors");
@@ -13,6 +14,7 @@ var adminUsersRouter = require("./routes/admin/users");
 var adminPetsRouter = require("./routes/admin/pet");
 var adminAdoptionsRouter = require("./routes/admin/adoption");
 var adminPhotoRouter = require("./routes/admin/petphoto");
+var uploadPhoto = require("./routes/uploads");
 
 var app = express();
 
@@ -32,10 +34,11 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
-//后台路由配置
+//路由配置
 app.use("/admin/users", adminUsersRouter);
 app.use("/admin/pet", adminPetsRouter);
 app.use("/admin/adoption", adminAdoptionsRouter);
 app.use("/admin/petphoto", adminPhotoRouter);
+app.use("/uploads", uploadPhoto);
 
 module.exports = app;

@@ -17,13 +17,49 @@ module.exports = (sequelize, DataTypes) => {
   }
   PetPhoto.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
       pet_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+          model: "Pets", // 这里使用复数形式，确保与迁移文件一致
+          key: "id",
+        },
+        onDelete: "CASCADE",
       },
-      photo_url: {
+      fullpath: {
         type: DataTypes.STRING,
-        allowNull: true, // 可以为空
+      },
+      fieldname: {
+        type: DataTypes.STRING,
+      },
+      originalname: {
+        type: DataTypes.STRING,
+      },
+      encoding: {
+        type: DataTypes.STRING,
+      },
+      mimetype: {
+        type: DataTypes.STRING,
+      },
+      destination: {
+        type: DataTypes.STRING,
+      },
+      filename: {
+        type: DataTypes.STRING,
+      },
+      path: {
+        type: DataTypes.STRING,
+      },
+      size: {
+        type: DataTypes.INTEGER,
+      },
+      url: {
+        type: DataTypes.STRING,
       },
     },
     {
