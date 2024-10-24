@@ -17,11 +17,13 @@ module.exports = (sequelize, DataTypes) => {
       //关联用户表等
       Pet.belongsTo(models.User, {
         foreignKey: "user_id",
+        as: "owner", // 给宠物拥有者设置别名
         onDelete: "CASCADE", // 当用户被删除时，相应的宠物记录也删除
       });
 
       Pet.belongsTo(models.User, {
         foreignKey: "adopter_id",
+        as: "adopter", // 给领养者设置别名
         onDelete: "SET NULL", // 当领养者被删除时，宠物的 adopter_id 设为 null
       });
     }

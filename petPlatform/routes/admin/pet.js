@@ -1,7 +1,7 @@
 // 引入Express模块
 const express = require("express");
 const router = express.Router();
-const { Pet } = require("../../models");
+const { Pet, User, PetPhoto } = require("../../models");
 const { Op } = require("sequelize");
 const { NotFoundError, success, failure } = require("../../utils/response");
 
@@ -24,6 +24,18 @@ router.get("/", async (req, res) => {
       offset: offset,
       limit: pageSize,
       where: {},
+      //增加关联
+      include: [
+        {
+          model: User, // 关联用户表
+          as: "owner", // 使用别名获取宠物拥有者的数据
+          attributes: ["id", "name", "contact_info", "gender", "avatar_url"],
+        },
+        {
+          model: PetPhoto, // 关联宠物照片表
+          attributes: ["id", "photo_url"],
+        },
+      ],
     };
     //模糊查询名字
     if (query.name) {
