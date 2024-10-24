@@ -16,7 +16,7 @@ const publishList = ref({})
 async function getPublishByUserId() {
     const res = await getPetInfoByUserId(userInfo.value.id)
     publishList.value = res.data.pet
-    console.log('发布列表：',publishList.value)
+    console.log('发布列表：', publishList.value)
 }
 onMounted(() => {
     getPublishByUserId()
@@ -29,7 +29,7 @@ onMounted(() => {
         <!-- 发布列表 -->
         <div class="publish-list">
             <div class="publish-item" v-for="item in publishList" :key="item.id">
-                <publishCard :pet="item" />
+                <publishCard :pet="item" @update-list="getPublishByUserId" />
             </div>
         </div>
     </div>

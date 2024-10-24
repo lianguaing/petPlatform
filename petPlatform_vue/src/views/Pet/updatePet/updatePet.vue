@@ -3,7 +3,7 @@
         <div class="modal">
 
             <header class="modal-header">
-                <h3>请录入宠物信息</h3>
+                <h3>宠物信息</h3>
                 <button class="close-btn" @click="close">×</button>
             </header>
             <div class="modal-body">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <!-- 按钮 -->
-                <button class="modal-btn" @click="publishPet">发布</button>
+                <button class="modal-btn" @click="handleUpdatePet">更新</button>
             </div>
             <footer class="modal-footer">
                 <button class="modal-btn" @click="close">关闭</button>
@@ -56,41 +56,37 @@
 
 <script setup>
 import { reactive } from 'vue';
-import { addPetInfo } from '@/api/api'
-import { useUserStore } from "@/stores/userStore";
+import { updatePetInfo } from '@/api/api'
 
-const emit = defineEmits(['update:show', 'updatePet']);
+const props = defineProps({
+    pet: {
+        type: Object,
+        default: () => ({}),
+    },
+    getDataCallback: Function
+});
+
 //关闭窗口
 function close() {
-    emit('update:show');
+    props.getDataCallback(false);
 }
-//获取当前登录用户的id
-const userStore = useUserStore();
-//宠物信息
 const petInfo = reactive({
-    name: '',
-    age: '',
-    gender: 'female',
-    breed: '',
-    description: '',
-    tags: '',
-    species: '',
-    user_id: userStore.userInfo.id
+    name: props.pet.name,
+    age: props.pet.age,
+    gender: props.pet.gender,
+    breed: props.pet.breed,
+    description: props.pet.description,
+    tags: props.pet.tags,
+    species: props.pet.species,
 })
-
-//发布宠物信息
-async function publishPet() {
-    const flag = petInfo.name && petInfo.age && petInfo.breed && petInfo.description && petInfo.tags && petInfo.species
-    if (!flag) {
-        ElMessage.warning('请填写完整信息')
-        return
-    }
-    const res = await addPetInfo(petInfo);
+//修改宠物信息
+async function handleUpdatePet() {
+    const res = await updatePetInfo(props.pet.id, petInfo)
     if (res.status) {
-        ElMessage.success('发布成功!')
-        //刷新主页列表
-        emit('updatePet')
-    } else ElMessage.warning('发布失败')
+        ElMessage.success('更新成功!')
+        props.getDataCallback(petInfo)
+    }
+    else ElMessage.warning('更新失败!')
 }
 </script>
 

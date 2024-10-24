@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
     //当前是第几页，默认为第1页
     const currentPage = Math.abs(Number.parseInt(query.currentPage)) || 1;
     //每页显示多少条数据，默认为10条
-    const pageSize = Math.abs(Number.parseInt(query.pageSize)) || 10;
+    const pageSize = Math.abs(Number.parseInt(query.pageSize)) || 24;
     //计算起始索引
     const offset = (currentPage - 1) * pageSize;
 
@@ -44,7 +44,7 @@ router.get("/", async (req, res) => {
     //查询年龄范围(如：1-3)
     if (query.age) {
       condition.where = condition.where || {};
-      const [minAge, maxAge] = query.age.split('-').map(Number);
+      const [minAge, maxAge] = query.age.split("-").map(Number);
       condition.where.age = {
         [Op.between]: [minAge, maxAge],
       };
@@ -151,7 +151,7 @@ async function getPet(req) {
 function filterBody(req) {
   return {
     user_id: req.body.user_id,
-    status: req.body.status || "adoptable",
+    status: req.body.status || "available",
     adopter_id: req.body.adopter_id,
     name: req.body.name,
     gender: req.body.gender || "male",

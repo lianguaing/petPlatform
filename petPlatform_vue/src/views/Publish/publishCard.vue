@@ -1,7 +1,8 @@
 <script setup>
-import { defineProps, reactive, ref } from 'vue';
-import { getAdoptionInfoByPetId, updatePetInfo, updateAdoptionInfo } from "@/api/api"
+import { defineProps, ref } from 'vue';
+import { getAdoptionInfoByPetId, updatePetInfo, updateAdoptionInfo, deletePetInfo } from "@/api/api"
 import userAdoptList from './userAdoptList.vue';
+import updatePet from '../Pet/updatePet';
 
 const props = defineProps({
     pet: {
@@ -13,6 +14,10 @@ const petInfo = ref(props.pet)
 const petAdoptList = ref([])
 
 const showList = ref(false)
+
+const emit= defineEmits(['updateList'])
+
+//查找该宠物的申请列表
 const handleShow = async () => {
     showList.value = !showList.value
     //根据宠物id查询申请表
@@ -57,20 +62,47 @@ async function rejectOther(approvedId) {
         }
     }
 }
+
+//更新宠物发布信息
+async function handleUpdate(id) {
+    //编程式调起弹窗
+    updatePet(petInfo.value).then(res => {
+        //刷新
+        res && Object.assign(petInfo.value, res)
+    })
+}
+
+//删除发布信息
+async function handleDelete() {
+    console.log(petInfo.value.id)
+    const res = await deletePetInfo(petInfo.value.id)
+    if (res.status) {
+        //删除当前数据
+        petInfo.value = {}
+        emit('updateList')
+        ElMessage.success('删除成功')
+    }
+    else ElMessage.warning('删除失败')
+}
 </script>
 <template>
     <div class="publish-card">
         <div class="card-header">
             <div class="details-pet">
                 <span>宠物：</span>{{ petInfo.name }}
-                <span>雌雄：</span>{{ petInfo.gender }}
+                <span>雌雄：</span>{{ petInfo.gender === 'male' ? '雄' : '雌' }}
                 <span>年龄：</span>{{ petInfo.age }}
                 <span> 状态：</span>{{ petInfo.status === 'available' ? '可领养' : '已领养' }}
             </div>
             <div class="operation">
                 <el-button type="success" @click="handleShow">{{ showList ? "隐藏" : "查看申请列表" }}</el-button>
-                <el-button type="primary">编辑</el-button>
-                <el-button type="danger">删除</el-button>
+                <el-button type="primary" @click="handleUpdate">编辑</el-button>
+                <el-popconfirm @confirm="handleDelete" title="确认删除此条发布吗？删除后不可找回" confirm-button-text="确认"
+                    cancel-button-text="取消">
+                    <template #reference>
+                        <el-button type="danger">删除</el-button>
+                    </template>
+                </el-popconfirm>
             </div>
         </div>
         <div class="card-body" v-show="showList">
