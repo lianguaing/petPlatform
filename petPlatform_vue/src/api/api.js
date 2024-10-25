@@ -33,6 +33,10 @@ export const getUserInfo = (id) => instance.get(`/admin/users/${id}`);
 export const updateUserInfo = (id, data) =>
   instance.put(`/admin/users/${id}`, data);
 /**
+ * 更新用户头像
+ */
+export const updateAvatar = (data) => instance.post("/uploads/avatar", data);
+/**
  * 注册用户
  */
 export const registerUser = (data) => instance.post("/admin/users", data);
@@ -65,7 +69,7 @@ export const getPetPhoto = (pet_id) =>
 /**
  * 新增宠物照片
  */
-export const addPetPhoto = (data) => instance.post("/admin/petphoto", data);
+export const addPetPhoto = (data) => instance.post("/uploads/aliyun", data);
 /**
  * 删除宠物照片
  */

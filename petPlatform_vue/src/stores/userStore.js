@@ -13,7 +13,7 @@ export const useUserStore = defineStore({
     async getUserMessage({ account, password }) {
       try {
         const res = await getUserInfo(account);
-        // console.log("用户数据：", res);
+        console.log("当前用户数据：", res);
         //判断密码是否正确
         if (password === res.data.user.password) {
           this.userInfo = res.data.user;
@@ -51,6 +51,11 @@ export const useUserStore = defineStore({
         console.log("修改用户信息出错", e);
         return false;
       }
+    },
+    //更新用户头像
+    updateUserAvatar(url) {
+      Object.assign(this.userInfo, { avatar_url: url });
+      return true;
     },
     //退出时清除用户的数据
     clearUserInfo() {

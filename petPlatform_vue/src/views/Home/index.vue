@@ -3,6 +3,7 @@ import { onMounted, reactive, ref } from 'vue';
 import { getPetInfo } from '../../api/api'
 import petCard from '../Pet/petCard.vue'
 import addPet from '../Pet/addPet.vue'
+import petDetail from '../Pet/petDetails.vue'
 
 const petList = ref({})
 const showPetDetail = ref(false)
@@ -19,6 +20,9 @@ const inputInfo = reactive({
     age: '',
     species: ''
 })
+//存储当前点击宠物详情信息
+const petDetailInfo = ref({})
+
 //查询宠物信息
 async function getPets(data) {
     const pets = await getPetInfo(data)
@@ -42,7 +46,9 @@ onMounted(async () => {
 //查看宠物详情
 function handlePetDetail(pet) {
     changePage()
-    console.log('当前pet', pet)
+
+    petDetailInfo.value = pet
+    console.log('当前pet', petDetailInfo.value)
 }
 //跳转开关
 function changePage() {
@@ -85,11 +91,10 @@ function changePage() {
     </section>
     <!-- 详情页 -->
     <section v-show="showPetDetail">
-        宠物详情页
-        <button @click="changePage">返回</button>
+        <petDetail @callback="changePage" :petDetailInfo="petDetailInfo" />
     </section>
     <!-- 发布宠物弹窗 -->
-    <addPet v-show="showAddPet" @update:show="showAddPet = false" @updatePet="getPets"/>
+    <addPet v-show="showAddPet" @update:show="showAddPet = false" @updatePet="getPets" />
 </template>
 
 <style scoped lang="less">

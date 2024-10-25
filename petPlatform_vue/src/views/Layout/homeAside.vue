@@ -5,6 +5,7 @@ import { useUserStore } from '../../stores/userStore.js'
 
 const userStore = useUserStore()
 const router = useRouter();
+const defaultImage = '../../../public/image/female.png'
 
 const categoryList = [
     { id: 1, name: '首页', routeName: 'petHome' },
@@ -12,6 +13,7 @@ const categoryList = [
     { id: 3, name: '我的领养', routeName: 'userAdopt' },
 ]
 const userIsExit = ref(Boolean(userStore.userInfo.id))
+
 const handleClick = () => {
     if (userStore.userInfo.id) {
         // 跳转到个人中心
@@ -29,7 +31,7 @@ const handleLogin = () => {
     <div class="aside">
         <!-- 个人头像 -->
         <div class="user-image" @click="handleClick">
-            <img class="default-image" src="../../../public/image/female.png" alt="">
+            <img class="default-image" :src="userStore.userInfo.avatar_url || defaultImage" alt="">
             <span v-if="!userIsExit">请登录</span>
             <span v-else>{{ userStore.userInfo.id }}</span>
         </div>
@@ -65,6 +67,7 @@ const handleLogin = () => {
 .default-image {
     width: 120px;
     height: 120px;
+    border-radius: 50%;
 }
 
 .home-category {
