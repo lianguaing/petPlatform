@@ -4,6 +4,7 @@ import { getPetInfo } from '../../api/api'
 import petCard from '../Pet/petCard.vue'
 import addPet from '../Pet/addPet.vue'
 import petDetail from '../Pet/petDetails.vue'
+import { init } from "@/stores/init.js";
 
 const petList = ref({})
 const showPetDetail = ref(false)
@@ -36,11 +37,20 @@ async function handleSearch() {
 
 //发布
 function handlePublish() {
+    //是否登录
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user.userInfo.id);
+    if (!user.userInfo.id) {
+        ElMessage.warning('请先登录')
+        return
+    }
     showAddPet.value = true
 }
 onMounted(async () => {
     //挂载时加载宠物信息
-    getPets()
+    getPets();
+    //初始化
+    init();
 })
 
 //查看宠物详情

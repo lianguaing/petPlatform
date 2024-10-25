@@ -60,7 +60,11 @@ export const addAdoptionInfo = (data) => instance.post("/admin/adoption", data);
  */
 export const updateAdoptionInfo = (id, data) =>
   instance.put(`/admin/adoption/${id}`, data);
-
+/**
+ * 删除领养信息
+ */
+export const deleteAdoptionInfo = (id) =>
+  instance.delete(`/admin/adoption/${id}`);
 /**
  * 查询宠物所有照片
  */

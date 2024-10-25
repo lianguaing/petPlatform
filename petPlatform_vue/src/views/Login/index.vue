@@ -26,7 +26,7 @@ async function handelClick() {
             const flag = await userStore.getUserMessage({ account, password })
             if (flag) {
                 ElMessage.success('登录成功!')
-                router.push({ name: 'home' }); // 使用路由名称跳转
+                router.push({ name: 'petHome' }); // 使用路由名称跳转
             } else {
                 ElMessage.warning('账号或密码不正确!')
             }
@@ -38,7 +38,7 @@ async function handelClick() {
             const flag = await userStore.registerUserMessage(data)
             if (flag) {
                 ElMessage.success('注册成功 ! 将为您自动登录')
-                router.push({ name: 'home' }); // 使用路由名称跳转
+                router.push({ name: 'petHome' }); // 使用路由名称跳转
             } else {
                 ElMessage.warning('注册失败!')
             }

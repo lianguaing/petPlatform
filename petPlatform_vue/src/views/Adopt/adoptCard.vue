@@ -1,5 +1,8 @@
 <script setup>
 import { defineProps, ref } from 'vue';
+import { deleteAdoptionInfo, updateAdoptionInfo } from '@/api/api'
+import { useAdoptStore } from '@/stores/adoptStore'
+const adoptStore = useAdoptStore();
 
 const props = defineProps({
     adopt: {
@@ -7,11 +10,30 @@ const props = defineProps({
         default: () => { }
     }
 })
+const emit = defineEmits(['update:adopt'])
+
 const adoptInfo = ref(props.adopt)
 const adoptStatusInfo = {
     'pending': '待审核',
     'adopted': '已通过',
     'rejected': '未通过'
+}
+const handleDelete = async () => {
+    console.log(adoptInfo.value)
+    adoptStore.deleteAdoptMessage(adoptInfo.value.id)
+    emit('update:adopt')
+    // const res = await deleteAdoptionInfo(adoptInfo.value.id)
+    // if (res.status) {
+    //     emit('update:adopt')
+    //     ElMessage.success('删除成功')
+    // } else ElMessage.error('删除失败')
+}
+const handleUpdate = async () => {
+    adoptStore.updateAdoptMessage(adoptInfo.value.id, { message: adoptInfo.value.message })
+    // const res = await updateAdoptionInfo(adoptInfo.value.id, { message: adoptInfo.value.message })
+    // if (res.status) {
+    //     ElMessage.success('更新成功')
+    // } else ElMessage.error('更新失败')
 }
 </script>
 <template>
@@ -34,8 +56,8 @@ const adoptStatusInfo = {
             </div>
         </div>
         <div class="operation">
-            <el-button style="width: 80px;" type="primary">更新</el-button>
-            <el-button style="width: 80px;margin:8px 0" type="danger">撤销</el-button>
+            <el-button style="width: 80px;" type="primary" @click="handleUpdate">更新</el-button>
+            <el-button style="width: 80px;margin:8px 0" type="danger" @click="handleDelete">撤销</el-button>
         </div>
 
     </div>
@@ -72,7 +94,8 @@ const adoptStatusInfo = {
         color: #929191;
         margin-left: 10px;
     }
-    &>i{
+
+    &>i {
         font-size: 10px;
         margin: 10px 0 0 10px;
         color: #929191;

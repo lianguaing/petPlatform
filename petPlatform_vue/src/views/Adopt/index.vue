@@ -2,10 +2,12 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../../stores/userStore.js'
+// import { useAdoptStore } from '../../stores/adoptStore.js'
 import { getAdoptionInfo } from '@/api/api';
 import adoptCard from './adoptCard.vue';
 
 const userStore = useUserStore()
+// const adoptStore = useAdoptStore()
 
 const router = useRouter()
 //当前用户信息
@@ -16,7 +18,9 @@ const adoptList = ref({})
 async function getadoptByUserId() {
     const res = await getAdoptionInfo(userInfo.value.id)
     adoptList.value = res.data.adoptionR
-    console.log('领养列表：',adoptList.value)
+    console.log('领养列表1：', adoptList.value)
+    // const res = await adoptStore.getAdoptMessage()
+    // if (res) adoptList.value = adoptStore.adoptInfo
 }
 onMounted(() => {
     getadoptByUserId()
@@ -28,10 +32,10 @@ onMounted(() => {
         <h3 class="text">我的领养</h3>
         <div class="border-box"></div>
         <!-- 领养列表 -->
-        
+
         <div class="adopt-list">
             <div class="adopt-item" v-for="item in adoptList" :key="item.id">
-                <adoptCard :adopt="item"/>
+                <adoptCard :adopt="item" @update:adopt="getadoptByUserId" />
             </div>
         </div>
     </div>
@@ -53,10 +57,12 @@ onMounted(() => {
     margin-top: 20px;
     border-radius: 10px;
 }
+
 .adopt-list {
     margin: 20px 10px;
 }
-.adopt-item{
+
+.adopt-item {
     margin-bottom: 20px;
 }
 </style>
