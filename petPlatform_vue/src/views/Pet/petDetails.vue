@@ -35,6 +35,10 @@
           <div><span>宠物品种：</span>{{ petInfo?.breed }}</div>
           <div><span>宠物物种：</span>{{ petInfo?.species }}</div>
         </div>
+        <span>宠物标签</span>
+        <div class="pet-info-box">
+          {{ petInfo?.tags }}
+        </div>
         <span>宠物描述</span>
         <div class="pet-info-box">
           {{ petInfo?.description }}
@@ -168,7 +172,7 @@ async function handleAdopt() {
 
 .details-pet {
   display: flex;
-  height: 1000px;
+  height: auto;
   flex-direction: column;
   padding: 10px;
   background-color: #f9f3f7;
