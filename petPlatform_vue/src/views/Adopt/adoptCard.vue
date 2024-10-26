@@ -15,7 +15,7 @@ const emit = defineEmits(['update:adopt'])
 const adoptInfo = ref(props.adopt)
 const adoptStatusInfo = {
     'pending': '待审核',
-    'adopted': '已通过',
+    'approved': '已通过',
     'rejected': '未通过'
 }
 const handleDelete = async () => {
@@ -56,8 +56,10 @@ const handleUpdate = async () => {
             </div>
         </div>
         <div class="operation">
-            <el-button style="width: 80px;" type="primary" @click="handleUpdate">更新</el-button>
-            <el-button style="width: 80px;margin:8px 0" type="danger" @click="handleDelete">撤销</el-button>
+            <el-button v-if="adoptInfo.status === 'pending'" style="width: 80px;margin:8px 0" type="primary"
+                @click="handleUpdate">更新</el-button>
+            <el-button v-if="adoptInfo.status === 'pending'" style="width: 80px;margin:8px 0" type="danger"
+                @click="handleDelete">撤销</el-button>
         </div>
 
     </div>
