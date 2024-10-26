@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { defineProps } from 'vue';
+import defaultImg from '../../../public/image/pet.jpg'
 
 const props = defineProps({
     pet: Object,
@@ -10,12 +11,12 @@ const props = defineProps({
         age: 2,
     })
 });
-const pet = ref(props.pet);
+const petImg = ref(props.pet?.PetPhotos[0]?.url ? props.pet?.PetPhotos[0]?.url : defaultImg);
 </script>
 <template>
     <div class="pet-card">
         <!-- 宠物照片 -->
-        <img src="../../../public/image/pet.jpg" alt="Pet Image" class="pet-image" />
+        <img :src="petImg" alt="Pet Image" class="pet-image" />
 
         <!-- 宠物信息 -->
         <div class="pet-info">

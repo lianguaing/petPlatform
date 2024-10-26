@@ -28,7 +28,7 @@
       <!-- 宠物信息 -->
       <div class="details-pet">
         <span>基本信息</span>
-        <div>
+        <div class="pet-info-box">
           <div><span>宠物昵称：</span>{{ petInfo?.name }}</div>
           <div><span>宠物性别：</span>{{ petInfo?.gender === 'male' ? '雄' : '雌' }}</div>
           <div><span>宠物年龄：</span>{{ petInfo?.age }}</div>
@@ -36,11 +36,13 @@
           <div><span>宠物物种：</span>{{ petInfo?.species }}</div>
         </div>
         <span>宠物描述</span>
-        <div>
+        <div class="pet-info-box">
           {{ petInfo?.description }}
         </div>
         <span>生活照片</span>
-        <div></div>
+        <div class="life-photo">
+          <img class="life-photo-img" v-for="img in petPhotos" :key="img.id" :src="img.url" alt="" />
+        </div>
       </div>
     </div>
   </div>
@@ -171,16 +173,33 @@ async function handleAdopt() {
   padding: 10px;
   background-color: #f9f3f7;
   border-radius: 20px;
+}
 
-  &>div {
-    height: auto;
-    margin: 5px 0 20px 0;
-    border-radius: 20px;
-    background-color: #FFF;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    color: #686567;
+.pet-info-box {
+  height: auto;
+  margin: 5px 0 20px 0;
+  border-radius: 20px;
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  color: #686567;
+}
+
+.life-photo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  height: auto;
+  margin: 5px 0 20px 0;
+  border-radius: 20px;
+  background-color: #FFF;
+  padding: 10px;
+
+  &-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
   }
 }
 </style>

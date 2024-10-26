@@ -71,10 +71,11 @@ export const deleteAdoptionInfo = (id) =>
 export const getPetPhoto = (pet_id) =>
   instance.get(`/admin/petphoto/${pet_id}`);
 /**
- * 新增宠物照片
+ * 更新宠物照片
  */
-export const addPetPhoto = (data) => instance.post("/uploads/aliyun", data);
+export const addPetPhoto = (id, data) =>
+  instance.post(`/uploads/aliyun/${id}`, data);
 /**
  * 删除宠物照片
  */
-export const deletePetPhoto = (id) => instance.delete(`/admin/petphoto/${id}`);
+// export const deletePetPhoto = (id) => instance.delete(`/admin/petphoto/${id}`);
