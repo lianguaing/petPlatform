@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
     //当前是第几页，默认为第1页
     const currentPage = Math.abs(Number.parseInt(query.currentPage)) || 1;
     //每页显示多少条数据，默认为10条
-    const pageSize = Math.abs(Number.parseInt(query.pageSize)) || 24;
+    const pageSize = Math.abs(Number.parseInt(query.pageSize)) || 100;
     //计算起始索引
     const offset = (currentPage - 1) * pageSize;
 
