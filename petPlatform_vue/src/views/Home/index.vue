@@ -12,14 +12,21 @@ const showAddPet = ref(false);
 
 const genderValues = [
     { value: 'male', label: '雄' },
-    { value: 'female', label: '雌' }
+    { value: 'female', label: '雌' },
+    { value: '', label: '全部' }
+]
+const statusValues = [
+    { value: 'adopted', label: '已领养' },
+    { value: 'available', label: '未领养' },
+    { value: '', label: '全部' }
 ]
 const inputInfo = reactive({
     name: '',
     gender: '',
     breed: '',
     age: '',
-    species: ''
+    species: '',
+    status: '',
 })
 //存储当前点击宠物详情信息
 const petDetailInfo = ref({})
@@ -82,6 +89,10 @@ function changePage() {
                         <el-option v-for="item in genderValues" :key="item.value" :label="item.label"
                             :value="item.value" />
                     </el-select>
+                    <el-select v-model="inputInfo.status" placeholder="领养状态" style="width: 100px;margin-right: 5px;">
+                        <el-option v-for="item in statusValues" :key="item.value" :label="item.label"
+                            :value="item.value" />
+                    </el-select>
                     <el-button type="primary" @click="handleSearch">搜索</el-button>
                 </div>
                 <!-- 搜索栏end -->
@@ -117,10 +128,6 @@ function changePage() {
     justify-content: space-between;
     margin: 20px 20px 0 10px;
 }
-
-// .search-box {
-
-// }
 
 .border-box {
     height: 2px;

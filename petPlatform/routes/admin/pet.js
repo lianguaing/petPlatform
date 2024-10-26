@@ -69,6 +69,10 @@ router.get("/", async (req, res) => {
         [Op.like]: `%${query.breed}%`,
       };
     }
+    //查询领养状态
+    if (query.status) {
+      condition.where.status = query.status;
+    }
     const { count, rows: Pets } = await Pet.findAndCountAll(condition);
     success(res, "查询成功", {
       Pets,
@@ -78,22 +82,6 @@ router.get("/", async (req, res) => {
     failure(res, error);
   }
 });
-
-/**
- * 根据name查询宠物
- */
-// router.get("/:name", async (req, res) => {
-//   try {
-//     const { name } = req.params;
-//     const pet = await Pet.findOne({ where: { name: name } });
-//     if (!pet) {
-//       throw new NotFoundError(`${name}宠物不存在`);
-//     }
-//     success(res, "查询成功", { pet });
-//   } catch (error) {
-//     failure(res, error);
-//   }
-// });
 
 /**
  * 根据发布者查询宠物
