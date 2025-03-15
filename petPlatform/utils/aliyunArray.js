@@ -1,14 +1,11 @@
 const multer = require("multer");
-const MAO = require("multer-aliyun-oss");
+const MAO = require("multer-xxxx-oss");
 const OSS = require("ali-oss");
 const { BadRequest } = require("http-errors");
 
 // 阿里云配置信息
 const config = {
-  region: process.env.ALIYUN_REGION,
-  accessKeyId: process.env.ALIYUN_ACCESS_KEY_ID,
-  accessKeySecret: process.env.ALIYUN_ACCESS_KEY_SECRET,
-  bucket: process.env.ALIYUN_BUCKET,
+
 };
 
 // 阿里云上传
